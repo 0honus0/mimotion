@@ -323,7 +323,7 @@ def push_wx(desp=""):
 
 
 def push_tg(desp=""):
-    if tg_token == 'NO' or tg_user_id == 'NO':
+    if tg_token == 'NO' or tg_admin == 'NO':
         print("Not Set TG Push")
         return
     else:
