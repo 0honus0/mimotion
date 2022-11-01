@@ -330,10 +330,10 @@ def push_tg(desp=""):
         server_url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
         params = {
             "chat_id": tg_admin,
-            "text": desp
+            "text": f"【小米运动步数修改】 {desp}"
         }
         response = requests.post(server_url, params=params).text
-        print(response)
+        #print(response)
 
 # 企业微信
 def get_access_token():
