@@ -29,6 +29,8 @@ open_get_weather = sys.argv[12]
 # 设置获取天气的地区（上面开启后必填）如：area = "宁波"
 area = sys.argv[13]
 
+tg_token = sys.argv[14]
+tg_admin = sys.argv[15]
 # 以下如果看不懂直接默认就行只需改上面
 
 # 系数K查询到天气后降低步数比率，如查询得到设置地区为多云天气就会在随机后的步数乘0.9作为最终修改提交的步数
@@ -64,28 +66,31 @@ def getWeather():
         global K, type
         url = 'http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&needMoreData=true&pageNo=1&pageSize=7&city='+ area
         hea = {'User-Agent': 'Mozilla/5.0'}
-        r = requests.get(url=url, headers=hea)
-        if r.status_code == 200:
-            result = r.text
-            res = json.loads(result)
-            if "多云" in res['data']['list'][0]['weather']:
-                K = K_dict["多云"]
-            elif "阴" in res['data']['list'][0]['weather']:
-                K = K_dict["阴"]
-            elif "小雨" in res['data']['list'][0]['weather']:
-                K = K_dict["小雨"]
-            elif "中雨" in res['data']['list'][0]['weather']:
-                K = K_dict["中雨"]
-            elif "大雨" in res['data']['list'][0]['weather']:
-                K = K_dict["大雨"]
-            elif "暴雨" in res['data']['list'][0]['weather']:
-                K = K_dict["暴雨"]
-            elif "大暴雨" in res['data']['list'][0]['weather']:
-                K = K_dict["大暴雨"]
-            elif "特大暴雨" in res['data']['list'][0]['weather']:
-                K = K_dict["特大暴雨"]
-            type = res['data']['list'][0]['weather']
-        else:
+        try:
+            r = requests.get(url=url, headers=hea)
+            if r.status_code == 200:
+                result = r.text
+                res = json.loads(result)
+                if "多云" in res['data']['list'][0]['weather']:
+                    K = K_dict["多云"]
+                elif "阴" in res['data']['list'][0]['weather']:
+                    K = K_dict["阴"]
+                elif "小雨" in res['data']['list'][0]['weather']:
+                    K = K_dict["小雨"]
+                elif "中雨" in res['data']['list'][0]['weather']:
+                    K = K_dict["中雨"]
+                elif "大雨" in res['data']['list'][0]['weather']:
+                    K = K_dict["大雨"]
+                elif "暴雨" in res['data']['list'][0]['weather']:
+                    K = K_dict["暴雨"]
+                elif "大暴雨" in res['data']['list'][0]['weather']:
+                    K = K_dict["大暴雨"]
+                elif "特大暴雨" in res['data']['list'][0]['weather']:
+                    K = K_dict["特大暴雨"]
+                type = res['data']['list'][0]['weather']
+            else:
+                print("获取天气情况出错")
+        except:
             print("获取天气情况出错")
 
 
@@ -93,7 +98,7 @@ def getWeather():
 def getBeijinTime():
     global K, type
     K = 1.0
-    type = ""
+    type = "未知"
     hea = {'User-Agent': 'Mozilla/5.0'}
     url = r'http://time1909.beijing-time.org/time.asp'
     if open_get_weather == "True":
@@ -160,6 +165,7 @@ def getBeijinTime():
                 #print(msg_mi)
             if a:
                push('【小米运动步数修改】', msg_mi)
+               push_tg(msg_mi)
                push_wx(msg_mi)
                run(msg_mi)
             else:
@@ -315,6 +321,19 @@ def push_wx(desp=""):
         response = requests.get(server_url, params=params).text
         print(response)
 
+
+def push_tg(desp=""):
+    if tg_token == 'NO' or tg_user_id == 'NO':
+        print("Not Set TG Push")
+        return
+    else:
+        server_url = f"https://api.telegram.org/bot{tg_token}/sendMessage"
+        params = {
+            "chat_id": tg_admin,
+            "text": desp
+        }
+        response = requests.post(server_url, params=params).text
+        print(response)
 
 # 企业微信
 def get_access_token():
