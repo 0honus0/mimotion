@@ -105,47 +105,51 @@ def getBeijinTime():
     bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))
     bj_dt = str(bj_dt).split(' ')[1].split(':')[0]
     print(f"当前时间 {bj_dt} 点")
-
-    if str(bj_dt) == str(time_list[0]):
-        a = set_push[0]
-        min_1 = min_dict[time_list[0]]
-        max_1 = max_dict[time_list[0]]
-    elif str(bj_dt) == str(time_list[1]):
-        a = set_push[1]
-        min_1 = min_dict[time_list[1]]
-        max_1 = max_dict[time_list[1]]
-    elif str(bj_dt) == str(time_list[2]):
-        a = set_push[2]
-        min_1 = min_dict[time_list[2]]
-        max_1 = max_dict[time_list[2]]
-    elif str(bj_dt) == str(time_list[3]):
-        a = set_push[3]
-        min_1 = min_dict[time_list[3]]
-        max_1 = max_dict[time_list[3]]
-    elif str(bj_dt) == str(time_list[4]):
-        a = set_push[4]
-        min_1 = min_dict[time_list[4]]
-        max_1 = max_dict[time_list[4]]
-    elif str(bj_dt) == str(time_list[5]):
-        a = set_push[5]
-        min_1 = min_dict[time_list[5]]
-        max_1 = max_dict[time_list[5]]
-    elif str(bj_dt) == str(time_list[6]):
-        a = set_push[6]
-        min_1 = min_dict[time_list[6]]
-        max_1 = max_dict[time_list[6]]
-    else:
-        a = False
-        min_1 = 0
-        max_1 = 0
+    if r.status_code == 200:
+        result = r.text
+        #print(result)
+        if "nhrs=" + str(time_list[0]) in result:
+            a = set_push[0]
+            min_1 = min_dict[time_list[0]]
+            max_1 = max_dict[time_list[0]]
+        elif "nhrs=" + str(time_list[1]) in result:
+            a = set_push[1]
+            min_1 = min_dict[time_list[1]]
+            max_1 = max_dict[time_list[1]]
+        elif "nhrs=" + str(time_list[2]) in result:
+            a = set_push[2]
+            min_1 = min_dict[time_list[2]]
+            max_1 = max_dict[time_list[2]]
+        elif "nhrs=" + str(time_list[3]) in result:
+            a = set_push[3]
+            min_1 = min_dict[time_list[3]]
+            max_1 = max_dict[time_list[3]]
+        elif "nhrs=" + str(time_list[4]) in result:
+            a = set_push[4]
+            min_1 = min_dict[time_list[4]]
+            max_1 = max_dict[time_list[4]]
+        elif "nhrs=" + str(time_list[5]) in result:
+            a = set_push[5]
+            min_1 = min_dict[time_list[5]]
+            max_1 = max_dict[time_list[5]]
+        elif "nhrs=" + str(time_list[6]) in result:
+            a = set_push[6]
+            min_1 = min_dict[time_list[6]]
+            max_1 = max_dict[time_list[6]]
+        else:
+            a = False
+            min_1 = 0
+            max_1 = 0
+            if step1 != "":
+                min_1 = 1
+                max_1 = 1
         if step1 != "":
-            min_1 = 1
-            max_1 = 1
-    if step1 != "":
-        a = True
-    min_1 = int(K * min_1)
-    max_1 = int(K * max_1)
-
+            a = True
+        min_1 = int(K * min_1)
+        max_1 = int(K * max_1)
+    else:
+        print("获取北京时间失败")
+        return
     if min_1 != 0 and max_1 != 0:
         user_mi = sys.argv[1]
         # 登录密码

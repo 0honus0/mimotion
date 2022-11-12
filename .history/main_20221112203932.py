@@ -106,31 +106,31 @@ def getBeijinTime():
     bj_dt = str(bj_dt).split(' ')[1].split(':')[0]
     print(f"当前时间 {bj_dt} 点")
 
-    if str(bj_dt) == str(time_list[0]):
+    if str(bj_dt == time_list:
         a = set_push[0]
         min_1 = min_dict[time_list[0]]
         max_1 = max_dict[time_list[0]]
-    elif str(bj_dt) == str(time_list[1]):
+    elif "nhrs=" + str(time_list[1]) in result:
         a = set_push[1]
         min_1 = min_dict[time_list[1]]
         max_1 = max_dict[time_list[1]]
-    elif str(bj_dt) == str(time_list[2]):
+    elif "nhrs=" + str(time_list[2]) in result:
         a = set_push[2]
         min_1 = min_dict[time_list[2]]
         max_1 = max_dict[time_list[2]]
-    elif str(bj_dt) == str(time_list[3]):
+    elif "nhrs=" + str(time_list[3]) in result:
         a = set_push[3]
         min_1 = min_dict[time_list[3]]
         max_1 = max_dict[time_list[3]]
-    elif str(bj_dt) == str(time_list[4]):
+    elif "nhrs=" + str(time_list[4]) in result:
         a = set_push[4]
         min_1 = min_dict[time_list[4]]
         max_1 = max_dict[time_list[4]]
-    elif str(bj_dt) == str(time_list[5]):
+    elif "nhrs=" + str(time_list[5]) in result:
         a = set_push[5]
         min_1 = min_dict[time_list[5]]
         max_1 = max_dict[time_list[5]]
-    elif str(bj_dt) == str(time_list[6]):
+    elif "nhrs=" + str(time_list[6]) in result:
         a = set_push[6]
         min_1 = min_dict[time_list[6]]
         max_1 = max_dict[time_list[6]]
