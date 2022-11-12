@@ -58,7 +58,7 @@ headers = {'User-Agent': 'MiFit/5.3.0 (iPhone; iOS 14.7.1; Scale/3.00)'}
 
 utc_dt = datetime.utcnow().replace(tzinfo=timezone.utc)
 bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))
-now = bi_dt
+now = bj_dt
 bj_dt = str(bj_dt).split(' ')[1].split(':')[0]
 
 
