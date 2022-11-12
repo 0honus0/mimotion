@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-import requests, time, datetime, re,sys, json, random
+import requests, time, re,sys, json, random
 from datetime import datetime, timedelta, timezone
 
 
@@ -54,9 +54,12 @@ max_dict = {time_list[0]: 4000, time_list[1]: 7000, time_list[2]: 9000, time_lis
 # 设置结束
 #now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 # 北京时间
-time_bj = datetime.datetime.today() + datetime.timedelta(hours=8)
-now = time_bj.strftime("%Y-%m-%d %H:%M:%S")
 headers = {'User-Agent': 'MiFit/5.3.0 (iPhone; iOS 14.7.1; Scale/3.00)'}
+
+utc_dt = datetime.utcnow().replace(tzinfo=timezone.utc)
+bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))
+now = bi_dt
+bj_dt = str(bj_dt).split(' ')[1].split(':')[0]
 
 
 #获取区域天气情况
@@ -101,9 +104,7 @@ def getBeijinTime():
     global K, type
     K = 1.0
     type = "未知"
-    utc_dt = datetime.utcnow().replace(tzinfo=timezone.utc)
-    bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))
-    bj_dt = str(bj_dt).split(' ')[1].split(':')[0]
+
     print(f"当前时间 {bj_dt} 点")
 
     if str(bj_dt) == str(time_list[0]):
