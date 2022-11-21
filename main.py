@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 import requests, time, re,sys, json, random
 from datetime import datetime, timedelta, timezone
-
+import time
 
 # 设置开始
 # 用户名（格式为 13800138000）
@@ -244,7 +244,7 @@ def main(_user,_passwd,min_1, max_1):
         print("登陆失败！")
         return "login fail!"
 
-    t = get_time()
+    t = round(time.time()*1000)
 
     app_token = get_app_token(login_token)
 
@@ -270,15 +270,6 @@ def main(_user,_passwd,min_1, max_1):
     result = f"[{now}]\n账号：{user[:3]}****{user[7:]}\n修改步数（{step}）[" + response['message'] + "]\n"
     #print(result)
     return result
-
-
-# 获取时间戳
-def get_time():
-    url = 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp'
-    response = requests.get(url, headers=headers).json()
-    t = response['data']['t']
-    return t
-
 
 # 获取app_token
 def get_app_token(login_token):
